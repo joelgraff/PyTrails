@@ -92,7 +92,7 @@ def dict_to_etree(d, version):
                     root.text = v
                 elif k.startswith('@'):
                     assert isinstance(v, str)
-                    root.setv(k[1:], v)
+                    root.set(k[1:], v)
                 elif isinstance(v, list):
                     for e in v:
                         _to_etree(e, etree.SubElement(root, k))
