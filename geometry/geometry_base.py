@@ -13,6 +13,8 @@ class GeometryBase():
         Constructor
         """
 
+        print("geometry_base_init")
+
         self.xml_schema = ''
 
         if isinstance(source, type(self)):
@@ -32,7 +34,7 @@ class GeometryBase():
         Generic getter for class attributes
         """
 
-        assert (key in self.__dict__()),\
+        assert (key in self.__dict__),\
             "Invalid key {} accessing arc {}".format(key, self.id)
 
         return getattr(self, self._key_pairs[key])
@@ -42,17 +44,22 @@ class GeometryBase():
         Generic setter for class attributes
         """
 
+        print("\n\t------------->>>> SETV")
+
+        print('\t\nkey\n', key, value)
+
         _keys = list(self.__dict__.keys())
 
+        print(key in _keys)
         if not key in _keys:
 
             assert (set([key]).issubset(set(self._key_pairs))),\
                 "Invalid key {} accessing arc {}".format(key, self.id)
 
-
             key = _keys[self._key_pairs.index(key)]
 
         setattr(self, key, value)
+        print('\n\t', key, '=', value)
 
     def copy_source(self, source):
         """
@@ -134,3 +141,13 @@ class GeometryBase():
                 .format(data)
 
         return _result
+
+    #def __str__(self):
+    #    """
+    #    Stringification
+    #    """
+
+    #    print(self.__dict__)
+
+        return [_k + ': ' + str(_v) + '\n' for _k, _v in self.__dict__.items()\
+            if _k[0] != '_']

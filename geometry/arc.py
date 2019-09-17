@@ -55,6 +55,30 @@ class Arc(GeometryBase):
 
         self._key_pairs = Arc._xml_keys
 
+    def setv(self, key, value):
+        print('\n\tarc setv', key, value)
+        super().setv(key, value)
+
+    def __str__(self):
+        """
+        Stringification
+        """
+
+        _result = ''
+        for _k, _v in self.__dict__.items():
+
+            _key = _k
+
+            if _key == '_key_pairs':
+                continue
+
+            if _key.startswith('_Arc_'):
+                _key = _key[6:]
+
+            _result += _key + ':' + str(_v) + '\n'
+
+        return _result
+
     @property
     def pi(self):
         """

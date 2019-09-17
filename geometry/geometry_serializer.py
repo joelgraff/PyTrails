@@ -24,6 +24,8 @@ def deserialize(xml_path, xsd_path):
     #return structre containing the objects constructed from dictionary
     recurse_dict(_data, _structure)
 
+    return _structure
+
 def recurse_dict(data, structure, level=0):
     """
     Recurse a LandXML data dictionary, building
@@ -52,10 +54,16 @@ def recurse_dict(data, structure, level=0):
 
                     _data = data[x]
 
-                    if isinstance(_data, list):
-                        _data = _data[0]
+                    if not _key in structure:
+                        structure[_key] = []
 
-                    structure[_key] = build_curve(_data)
+                    if not isinstance(_data, list):
+                        _data = [_data]
+
+                    for _v in _data:
+                        structure[_key].append(build_curve(_v))
+
+                    print(structure[_key])
 
             recurse_dict(data[x], structure, level + 1)
 
@@ -81,13 +89,30 @@ def build_curve(data):
     for _k in data:
 
         if _k[0] == '{':
+            print('tag set', _k.split('}')[1], data[_k])
             _arc.setv(_k.split('}')[1], data[_k])
 
         elif _k[0] == '@':
+            print('attr set')
             _arc.setv(_k[1:], data[_k])
 
     return _arc
 
-def _deser():
+def _deser(sgr = True):
 
-    deserialize('/home/joel/Projects/PyTrails/resources/data/SugarGroveRd.xml', '/home/joel/Projects/PyTrails/resources/data/LandXML-1.2.xsd')
+    _base = '/home/joel/Projects/PyTrails/resources/data/'
+
+    a = None
+
+    if sgr:
+        a = deserialize(
+            _base + 'SugarGroveRd.xml', _base + 'LandXML-1.2.xsd')
+
+    else:
+        a = deserialize(_base + 'divcibare.xml', _base + 'LandXML-1.0.xsd')
+
+    print('\n\tresults = ')
+    for _v in a['Curve']:
+        print('\n\n',str(_v))
+
+    return a

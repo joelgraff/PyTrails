@@ -82,20 +82,27 @@ def dict_to_etree(d, version):
     def _to_etree(d, root):
         if not d:
             pass
+
         elif isinstance(d, str):
             root.text = d
+
         elif isinstance(d, dict):
+
             for k,v in d.items():
                 assert isinstance(k, str)
+
                 if k.startswith('#'):
                     assert k == '#text' and isinstance(v, str)
                     root.text = v
+
                 elif k.startswith('@'):
                     assert isinstance(v, str)
                     root.set(k[1:], v)
+
                 elif isinstance(v, list):
                     for e in v:
                         _to_etree(e, etree.SubElement(root, k))
+
                 else:
                     _to_etree(v, etree.SubElement(root, k))
         else:
