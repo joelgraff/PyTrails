@@ -1,17 +1,17 @@
--i https://pypi.org/simple
-atomicwrites==1.3.0
-attrs==19.1.0
-elementpath==1.2.1
-importlib-metadata==0.20
-lxml==4.4.1
-more-itertools==7.2.0
+-i https://pypi.org/simple/
+atomicwrites==1.4.0
+attrs==20.3.0
+elementpath==1.2.2
+importlib-metadata==3.3.0 ; python_version < '3.8'
+lxml==4.6.2
+more-itertools==8.6.0
 numpy==1.17.1
-packaging==19.1
-pluggy==0.12.0
-py==1.8.0
-pyparsing==2.4.2
+packaging==20.8
+pluggy==0.13.1
+py==1.10.0
+pyparsing==2.4.7
 pytest==5.0.1
-six==1.12.0
-wcwidth==0.1.7
+typing-extensions==3.7.4.3 ; python_version < '3.8'
+wcwidth==0.2.5
 xmlschema==1.0.14
-zipp==0.6.0
+zipp==3.4.0
